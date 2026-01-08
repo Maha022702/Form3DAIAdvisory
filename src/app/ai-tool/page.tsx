@@ -23,15 +23,34 @@ export default function AITool() {
   const [currentMessage, setCurrentMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToBottom = (force = false) => {
+    if (force || isAtBottom) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleScroll = () => {
+    if (messagesContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
+      const atBottom = scrollTop + clientHeight >= scrollHeight - 10; // 10px tolerance
+      setIsAtBottom(atBottom);
+    }
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    scrollToBottom(true); // Force scroll on new messages
+  }, [messages.length]);
+
+  useEffect(() => {
+    // Only scroll if user is at bottom and not streaming
+    if (isAtBottom && !isStreaming) {
+      scrollToBottom();
+    }
+  }, [messages, isAtBottom, isStreaming]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -335,7 +354,11 @@ export default function AITool() {
                   </div>
 
                   {/* Messages Container */}
-                  <div className="bg-[#0a0a0f] rounded-2xl p-4 mb-4 max-h-96 overflow-y-auto">
+                  <div 
+                    ref={messagesContainerRef}
+                    onScroll={handleScroll}
+                    className="bg-[#0a0a0f] rounded-2xl p-4 mb-4 max-h-96 overflow-y-auto relative"
+                  >
                     {messages.length === 0 ? (
                       <div className="text-center text-gray-500 py-8">
                         <MessageCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
@@ -351,7 +374,7 @@ export default function AITool() {
                                 ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white'
                                 : 'bg-white/10 text-gray-300'
                             }`}>
-                              <p className="text-sm">{message.content}</p>
+                              <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                               <p className="text-xs opacity-70 mt-1">
                                 {message.timestamp.toLocaleTimeString()}
                               </p>
@@ -370,6 +393,17 @@ export default function AITool() {
                         )}
                         <div ref={messagesEndRef} />
                       </div>
+                    )}
+
+                    {/* Scroll to Bottom Button */}
+                    {!isAtBottom && (
+                      <button
+                        onClick={() => scrollToBottom(true)}
+                        className="absolute bottom-4 right-4 bg-cyan-500 hover:bg-cyan-600 text-white p-2 rounded-full shadow-lg transition-colors"
+                        title="Scroll to bottom"
+                      >
+                        <ArrowRight className="w-4 h-4 rotate-90" />
+                      </button>
                     )}
                   </div>
 
