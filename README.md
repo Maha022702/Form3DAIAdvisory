@@ -13,10 +13,11 @@ A world-class, stunning, and innovative website for Form3DAIAdvisory, an AI-base
 - Interactive hover effects and transforms
 
 ### 🤖 **AI-Powered Tools**
-- Interactive AI Recommendation Engine
+- **Live AI Analyzer**: Real-time streaming chat with AI consultant for instant 3D printing advice
+- Interactive AI Recommendation Engine with multiple technology options (SLA, FDM, SLS)
 - Real-time material and technology suggestions
 - Smart form-based project analysis
-- 95% accuracy AI matching system
+- Context-aware AI responses based on user project details
 
 ### 📄 **Comprehensive Pages**
 1. **Home** - Hero section, services overview, AI features, statistics, testimonials, and CTAs
@@ -40,8 +41,30 @@ A world-class, stunning, and innovative website for Form3DAIAdvisory, an AI-base
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
 - **Animations**: Framer Motion (installed but ready for implementation)
+- **AI Integration**: OpenAI API with streaming responses
 - **Images**: Next.js Image optimization with Unsplash integration
 - **Build**: Turbopack for fast development
+
+## 🔑 API Setup
+
+### OpenAI API Configuration
+
+1. **Get your OpenAI API key**:
+   - Visit [OpenAI Platform](https://platform.openai.com/api-keys)
+   - Create a new API key
+   - Copy the key (keep it secure!)
+
+2. **Configure environment variables**:
+   ```bash
+   # Create .env.local file in project root
+   echo "OPENAI_API_KEY=your_actual_api_key_here" > .env.local
+   ```
+
+3. **API Features**:
+   - **Live AI Analyzer**: Real-time streaming chat for 3D printing consultation
+   - **Context-aware responses**: Uses form data to provide personalized advice
+   - **Multiple technology recommendations**: SLA, FDM, SLS suggestions
+   - **Cost-effective model**: Uses GPT-4o-mini for fast, affordable responses
 
 ## 📦 Installation
 

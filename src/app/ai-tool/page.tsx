@@ -1,6 +1,13 @@
 'use client';
-import { useState } from 'react';
-import { Sparkles, Cpu, Zap, CheckCircle, ArrowRight, Box } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Sparkles, Cpu, Zap, CheckCircle, ArrowRight, Box, Send, MessageCircle, Loader2 } from 'lucide-react';
+
+interface Message {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+}
 
 export default function AITool() {
   const [formData, setFormData] = useState({
@@ -12,10 +19,125 @@ export default function AITool() {
     detail: ''
   });
   const [showResults, setShowResults] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [currentMessage, setCurrentMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setShowResults(true);
+  };
+
+  const sendMessage = async () => {
+    if (!currentMessage.trim() || isLoading) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: currentMessage,
+      timestamp: new Date()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setCurrentMessage('');
+    setIsLoading(true);
+    setIsStreaming(true);
+
+    // Create context from form data
+    const context = Object.entries(formData)
+      .filter(([_, value]) => value)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join(', ');
+
+    try {
+      const response = await fetch('/api/ai-analyzer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: currentMessage,
+          context: context || 'General 3D printing consultation'
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get AI response');
+      }
+
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+      let assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: '',
+        timestamp: new Date()
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value);
+          const lines = chunk.split('\n');
+
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = line.slice(6);
+              if (data === '[DONE]') {
+                setIsStreaming(false);
+                break;
+              }
+
+              try {
+                const parsed = JSON.parse(data);
+                if (parsed.content) {
+                  setMessages(prev => prev.map(msg =>
+                    msg.id === assistantMessage.id
+                      ? { ...msg, content: msg.content + parsed.content }
+                      : msg
+                  ));
+                }
+              } catch (e) {
+                // Ignore parsing errors for incomplete chunks
+              }
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      const errorMessage: Message = {
+        id: (Date.now() + 2).toString(),
+        role: 'assistant',
+        content: 'Sorry, I encountered an error. Please try again.',
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+      setIsStreaming(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   return (
@@ -200,97 +322,80 @@ export default function AITool() {
               </div>
             ) : (
               <div className="space-y-6">
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
+                {/* Live AI Chat Interface */}
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-6">
                   <div className="flex items-center gap-3 mb-6">
-                    <CheckCircle className="w-8 h-8 text-cyan-400" />
-                    <h2 className="text-2xl font-bold text-white">Recommended Material</h2>
-                  </div>
-                  <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-2xl p-6 mb-4">
-                    <h3 className="text-xl font-bold mb-2 text-cyan-400">Standard Tough Material</h3>
-                    <p className="text-gray-400 mb-4">Perfect balance of strength, detail, and cost-effectiveness for your project</p>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-white/5 p-3 rounded-lg">
-                        <div className="text-sm text-gray-500">Tensile Strength</div>
-                        <div className="font-semibold text-white">65 MPa</div>
-                      </div>
-                      <div className="bg-white/5 p-3 rounded-lg">
-                        <div className="text-sm text-gray-500">Elongation</div>
-                        <div className="font-semibold text-white">12%</div>
-                      </div>
-                      <div className="bg-white/5 p-3 rounded-lg">
-                        <div className="text-sm text-gray-500">Cost/kg</div>
-                        <div className="font-semibold text-white">₹8,500</div>
-                      </div>
-                      <div className="bg-white/5 p-3 rounded-lg">
-                        <div className="text-sm text-gray-500">Match Score</div>
-                        <div className="font-semibold text-cyan-400">95%</div>
-                      </div>
+                    <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
+                      <MessageCircle className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-white">Live AI Consultant</h2>
+                      <p className="text-gray-400 text-sm">Get real-time expert advice for your 3D printing project</p>
                     </div>
                   </div>
-                </div>
 
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <Cpu className="w-8 h-8 text-purple-400" />
-                    <h2 className="text-2xl font-bold text-white">Recommended Technologies</h2>
+                  {/* Messages Container */}
+                  <div className="bg-[#0a0a0f] rounded-2xl p-4 mb-4 max-h-96 overflow-y-auto">
+                    {messages.length === 0 ? (
+                      <div className="text-center text-gray-500 py-8">
+                        <MessageCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                        <p>Start a conversation with our AI consultant!</p>
+                        <p className="text-sm mt-2">Ask about materials, technologies, costs, or any 3D printing questions.</p>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        {messages.map((message) => (
+                          <div key={message.id} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                            <div className={`max-w-[80%] p-3 rounded-2xl ${
+                              message.role === 'user'
+                                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white'
+                                : 'bg-white/10 text-gray-300'
+                            }`}>
+                              <p className="text-sm">{message.content}</p>
+                              <p className="text-xs opacity-70 mt-1">
+                                {message.timestamp.toLocaleTimeString()}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                        {isStreaming && (
+                          <div className="flex justify-start">
+                            <div className="bg-white/10 p-3 rounded-2xl">
+                              <div className="flex items-center gap-2">
+                                <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
+                                <span className="text-gray-400 text-sm">AI is thinking...</span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        <div ref={messagesEndRef} />
+                      </div>
+                    )}
                   </div>
-                  <div className="space-y-4">
-                    <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl p-6">
-                      <h3 className="text-xl font-bold mb-2 text-purple-400">SLA (Stereolithography)</h3>
-                      <p className="text-gray-400 mb-4">Best for high-detail production with excellent surface finish</p>
-                      <ul className="space-y-2">
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                          <span className="text-gray-300">Layer resolution: 25-100 microns</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                          <span className="text-gray-300">Excellent surface finish</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                          <span className="text-gray-300">Wide material compatibility</span>
-                        </li>
-                      </ul>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-2xl p-6">
-                      <h3 className="text-xl font-bold mb-2 text-blue-400">FDM (Fused Deposition Modeling)</h3>
-                      <p className="text-gray-400 mb-4">Ideal for functional prototypes and cost-effective production</p>
-                      <ul className="space-y-2">
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                          <span className="text-gray-300">Layer resolution: 100-300 microns</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                          <span className="text-gray-300">Strong mechanical properties</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                          <span className="text-gray-300">Cost-effective for large parts</span>
-                        </li>
-                      </ul>
-                    </div>
-                    
-                    <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl p-6">
-                      <h3 className="text-xl font-bold mb-2 text-green-400">SLS (Selective Laser Sintering)</h3>
-                      <p className="text-gray-400 mb-4">Perfect for complex geometries and functional parts</p>
-                      <ul className="space-y-2">
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                          <span className="text-gray-300">No support structures needed</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                          <span className="text-gray-300">Excellent mechanical properties</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                          <span className="text-gray-300">Complex geometries possible</span>
-                        </li>
-                      </ul>
-                    </div>
+
+                  {/* Message Input */}
+                  <div className="flex gap-3">
+                    <input
+                      type="text"
+                      value={currentMessage}
+                      onChange={(e) => setCurrentMessage(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Ask about materials, technologies, costs..."
+                      className="flex-1 px-4 py-3 bg-white/5 border border-white/20 rounded-xl focus:border-cyan-500 focus:outline-none transition text-white placeholder-gray-500"
+                      disabled={isLoading}
+                    />
+                    <button
+                      onClick={sendMessage}
+                      disabled={!currentMessage.trim() || isLoading}
+                      className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl font-semibold hover:shadow-xl hover:shadow-cyan-500/25 transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    >
+                      {isLoading ? (
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                      ) : (
+                        <Send className="w-5 h-5" />
+                      )}
+                      Send
+                    </button>
                   </div>
                 </div>
 
