@@ -91,7 +91,8 @@ export default function AITool() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to get AI response');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to get AI response');
       }
 
       const reader = response.body?.getReader();
