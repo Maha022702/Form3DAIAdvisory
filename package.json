@@ -2,6 +2,7 @@
   "name": "form3dadvisory",
   "version": "0.1.0",
   "private": true,
+  "description": "World-class 3D printing consultancy website for Form3DAdvisory - AI-based services in material selection, technology selection, project management using resin-based printers.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,6 +10,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "framer-motion": "^12.24.12",
+    "lucide-react": "^0.562.0",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
