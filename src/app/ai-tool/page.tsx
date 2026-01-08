@@ -143,7 +143,9 @@ export default function AITool() {
       const errorMessage: Message = {
         id: (Date.now() + 2).toString(),
         role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again.',
+        content: error instanceof Error && error.message.includes('temporarily unavailable')
+          ? 'AI service is temporarily unavailable. Please try again in a few moments.'
+          : 'Sorry, I encountered an error. Please try again.',
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage]);
