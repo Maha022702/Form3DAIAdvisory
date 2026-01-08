@@ -59,11 +59,7 @@ export default function Home() {
           </div>
           
           {/* Scroll Indicator */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2">
-              <div className="w-1 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-            </div>
-          </div>
+          
         </div>
       </section>
 
@@ -224,55 +220,6 @@ export default function Home() {
             <div className="p-8 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
               <div className="text-5xl font-extrabold bg-gradient-to-r from-green-400 to-cyan-500 bg-clip-text text-transparent mb-2">24/7</div>
               <div className="text-gray-400 font-semibold">AI Support</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-24 relative">
-        <div className="absolute inset-0 bg-[#0a0a0f]"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <h2 className="text-4xl font-extrabold text-center mb-16 text-white">What Our <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Clients Say</span></h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:border-cyan-500/30 transition">
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
-              </div>
-              <p className="text-gray-300 mb-6 italic">&quot;Form3DAIAdvisory transformed our manufacturing process. Their AI recommendations saved us 40% in material costs!&quot;</p>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">RK</div>
-                <div>
-                  <div className="font-semibold text-white">Rajesh Kumar</div>
-                  <div className="text-sm text-gray-500">Manufacturing Director</div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:border-purple-500/30 transition">
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
-              </div>
-              <p className="text-gray-300 mb-6 italic">&quot;The best 3D printing consultancy in India. Their expertise is unmatched.&quot;</p>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">PS</div>
-                <div>
-                  <div className="font-semibold text-white">Priya Sharma</div>
-                  <div className="text-sm text-gray-500">Product Designer</div>
-                </div>
-              </div>
-            </div>
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:border-blue-500/30 transition">
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
-              </div>
-              <p className="text-gray-300 mb-6 italic">&quot;Outstanding service! They helped us select the perfect printer and materials for our startup.&quot;</p>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">AM</div>
-                <div>
-                  <div className="font-semibold text-white">Amit Mehta</div>
-                  <div className="text-sm text-gray-500">Startup Founder</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

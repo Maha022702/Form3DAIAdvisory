@@ -232,25 +232,65 @@ export default function AITool() {
                 <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8">
                   <div className="flex items-center gap-3 mb-6">
                     <Cpu className="w-8 h-8 text-purple-400" />
-                    <h2 className="text-2xl font-bold text-white">Recommended Technology</h2>
+                    <h2 className="text-2xl font-bold text-white">Recommended Technologies</h2>
                   </div>
-                  <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl p-6">
-                    <h3 className="text-xl font-bold mb-2 text-purple-400">SLA (Stereolithography)</h3>
-                    <p className="text-gray-400 mb-4">Best for high-detail production with excellent surface finish</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                        <span className="text-gray-300">Layer resolution: 25-100 microns</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                        <span className="text-gray-300">Excellent surface finish</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
-                        <span className="text-gray-300">Wide material compatibility</span>
-                      </li>
-                    </ul>
+                  <div className="space-y-4">
+                    <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-2xl p-6">
+                      <h3 className="text-xl font-bold mb-2 text-purple-400">SLA (Stereolithography)</h3>
+                      <p className="text-gray-400 mb-4">Best for high-detail production with excellent surface finish</p>
+                      <ul className="space-y-2">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">Layer resolution: 25-100 microns</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">Excellent surface finish</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">Wide material compatibility</span>
+                        </li>
+                      </ul>
+                    </div>
+                    
+                    <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-2xl p-6">
+                      <h3 className="text-xl font-bold mb-2 text-blue-400">FDM (Fused Deposition Modeling)</h3>
+                      <p className="text-gray-400 mb-4">Ideal for functional prototypes and cost-effective production</p>
+                      <ul className="space-y-2">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">Layer resolution: 100-300 microns</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">Strong mechanical properties</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">Cost-effective for large parts</span>
+                        </li>
+                      </ul>
+                    </div>
+                    
+                    <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl p-6">
+                      <h3 className="text-xl font-bold mb-2 text-green-400">SLS (Selective Laser Sintering)</h3>
+                      <p className="text-gray-400 mb-4">Perfect for complex geometries and functional parts</p>
+                      <ul className="space-y-2">
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">No support structures needed</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">Excellent mechanical properties</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                          <span className="text-gray-300">Complex geometries possible</span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
 
