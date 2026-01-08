@@ -5,7 +5,14 @@ export async function POST(request: NextRequest) {
   try {
     // Check if OpenAI API key is available at runtime
     const apiKey = process.env.OPENAI_API_KEY;
+    console.log('API Key check:', {
+      exists: !!apiKey,
+      length: apiKey?.length,
+      startsWith: apiKey?.substring(0, 10)
+    });
+
     if (!apiKey) {
+      console.error('OpenAI API key not found in environment variables');
       return NextResponse.json(
         { error: 'AI service is temporarily unavailable. Please try again later.' },
         { status: 503 }
