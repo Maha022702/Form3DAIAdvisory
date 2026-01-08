@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Form3DAdvisory - AI-Powered 3D Printing Consultancy",
+  title: "Form3DAIAdvisory - AI-Powered 3D Printing Consultancy",
   description: "World-class 3D printing consultancy services in material selection, technology selection, project management. AI-based solutions for resin-based printers, serving India.",
 };
 

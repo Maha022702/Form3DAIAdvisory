@@ -239,7 +239,7 @@ export default function Home() {
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />)}
               </div>
-              <p className="text-gray-300 mb-6 italic">&quot;Form3DAdvisory transformed our manufacturing process. Their AI recommendations saved us 40% in material costs!&quot;</p>
+              <p className="text-gray-300 mb-6 italic">&quot;Form3DAIAdvisory transformed our manufacturing process. Their AI recommendations saved us 40% in material costs!&quot;</p>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold">RK</div>
                 <div>
@@ -287,7 +287,7 @@ export default function Home() {
           <Layers className="w-16 h-16 mx-auto text-white mb-6" />
           <h2 className="text-5xl font-extrabold mb-6 text-white">Ready to Transform Your 3D Printing?</h2>
           <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
-            Join 500+ satisfied clients who trust Form3DAdvisory for expert consultancy and AI-powered solutions.
+            Join 500+ satisfied clients who trust Form3DAIAdvisory for expert consultancy and AI-powered solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="bg-white text-blue-600 px-10 py-4 rounded-full font-semibold hover:bg-gray-100 transition transform hover:scale-105 shadow-2xl">

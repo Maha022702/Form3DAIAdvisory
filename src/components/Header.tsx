@@ -11,7 +11,7 @@ export default function Header() {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2 text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent hover:scale-105 transition">
           <Sparkles className="w-8 h-8 text-cyan-400" />
-          Form3DAdvisory
+          Form3DAIAdvisory
         </Link>
         
         {/* Desktop Navigation */}
