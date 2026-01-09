@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="w-8 h-8 text-cyan-400" />
-              <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Form3DAIAdvisory</span>
+              <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Form3DAI</span>
             </div>
             <p className="text-gray-400 mb-4">
               AI-Powered 3D Printing Consultancy transforming India&apos;s manufacturing future.
@@ -57,7 +57,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-gray-400">
                 <Mail className="w-5 h-5 mt-1 flex-shrink-0 text-cyan-400" />
-                <span>info@form3daiadvisory.com</span>
+                <span>info@form3dai.com</span>
               </li>
               <li className="flex items-start gap-2 text-gray-400">
                 <Phone className="w-5 h-5 mt-1 flex-shrink-0 text-cyan-400" />
@@ -72,7 +72,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-white/10 pt-8 text-center">
-          <p className="text-gray-400">&copy; 2026 Form3DAIAdvisory. All rights reserved.</p>
+          <p className="text-gray-400">&copy; 2026 Form3DAI. All rights reserved.</p>
           <p className="text-gray-500 mt-2">Empowering India&apos;s Additive Manufacturing Revolution</p>
         </div>
       </div>

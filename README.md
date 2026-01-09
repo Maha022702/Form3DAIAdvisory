@@ -1,6 +1,6 @@
-# Form3DAIAdvisory - AI-Powered 3D Printing Consultancy
+# Form3DAI - AI-Powered 3D Printing Consultancy
 
-A world-class, stunning, and innovative website for Form3DAIAdvisory, an AI-based 3D printing consultancy company specializing in material selection, technology selection, services, and project management. We focus on resin-based printers and serve industrial clients to common users in India, where additive manufacturing potential is yet to be fully recognized.
+A world-class, stunning, and innovative website for Form3DAI, an AI-based 3D printing consultancy company specializing in material selection, technology selection, services, and project management. We focus on resin-based printers and serve industrial clients to common users in India, where additive manufacturing potential is yet to be fully recognized.
 
 ## 🚀 Features
 
@@ -151,12 +151,12 @@ npm run build
 
 ## 📞 Contact
 
-- **Email**: info@form3daiadvisory.com
-- **Website**: Form3DAIAdvisory
+- **Email**: info@form3dai.com
+- **Website**: Form3DAI
 - **Location**: India
 
 ---
 
-**© 2026 Form3DAIAdvisory. All rights reserved.**
+**© 2026 Form3DAI. All rights reserved.**
 
 Empowering India's Additive Manufacturing Revolution 🚀

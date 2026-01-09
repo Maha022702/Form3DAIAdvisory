@@ -1,8 +1,8 @@
 {
-  "name": "form3daiadvisory",
+  "name": "form3dai",
   "version": "0.1.0",
   "private": true,
-  "description": "World-class 3D printing consultancy website for Form3DAIAdvisory - AI-based services in material selection, technology selection, project management using resin-based printers.",
+  "description": "World-class 3D printing consultancy website for Form3DAI - AI-based services in material selection, technology selection, project management using resin-based printers.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

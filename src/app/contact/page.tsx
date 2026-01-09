@@ -153,8 +153,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg mb-1 text-white">Email</h3>
-                      <p className="text-gray-400">info@form3daiadvisory.com</p>
-                      <p className="text-gray-400">support@form3daiadvisory.com</p>
+                      <p className="text-gray-400">info@form3dai.com</p>
+                      <p className="text-gray-400">support@form3dai.com</p>
                     </div>
                   </div>
                   

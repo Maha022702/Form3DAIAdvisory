@@ -234,7 +234,7 @@ export default function Home() {
           <Layers className="w-16 h-16 mx-auto text-white mb-6" />
           <h2 className="text-5xl font-extrabold mb-6 text-white">Ready to Transform Your 3D Printing?</h2>
           <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
-            Join 500+ satisfied clients who trust Form3DAIAdvisory for expert consultancy and AI-powered solutions.
+            Join 500+ satisfied clients who trust Form3DAI for expert consultancy and AI-powered solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="bg-white text-blue-600 px-10 py-4 rounded-full font-semibold hover:bg-gray-100 transition transform hover:scale-105 shadow-2xl">

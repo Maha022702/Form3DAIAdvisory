@@ -19,7 +19,7 @@ export default function About() {
           </div>
           <h1 className="text-6xl font-extrabold mb-6">
             <span className="text-white">About </span>
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Form3DAIAdvisory</span>
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Form3DAI</span>
           </h1>
           <p className="text-xl text-gray-400 max-w-3xl mx-auto">
             Pioneering India&apos;s 3D printing revolution with cutting-edge AI technology and world-class expertise
@@ -55,7 +55,7 @@ export default function About() {
               <Target className="w-12 h-12 text-cyan-400 mb-6" />
               <h2 className="text-3xl font-bold mb-6 text-white">Our Mission</h2>
               <p className="text-lg leading-relaxed text-gray-300">
-                At Form3DAIAdvisory, we&apos;re on a mission to democratize additive manufacturing in India.
+                At Form3DAI, we&apos;re on a mission to democratize additive manufacturing in India.
                 We believe that 3D printing has the potential to revolutionize industries and empower
                 individuals, yet its potential remains largely untapped in our country. Our AI-powered
                 consultancy bridges this gap by providing expert guidance accessible to everyone,
