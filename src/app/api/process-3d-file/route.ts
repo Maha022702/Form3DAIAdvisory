@@ -206,13 +206,14 @@ try:
     
     # Process mesh
     print("[2/3] Processing mesh...")
-    if not mesh.is_valid:
-        print("      ⚠ Mesh has issues, attempting repair...")
-        mesh.remove_degenerate_faces()
-        mesh.remove_infinite_values()
-        print("      ✓ Cleaned up mesh")
+    # Check for degenerate faces and fix them
+    initial_faces = len(mesh.faces)
+    mesh.remove_degenerate_faces()
+    if len(mesh.faces) < initial_faces:
+        print("      ⚠ Removed " + str(initial_faces - len(mesh.faces)) + " degenerate faces")
     
-    print("      ✓ Mesh is valid: " + str(mesh.is_valid))
+    mesh.remove_infinite_values()
+    print("      ✓ Mesh processed: " + str(len(mesh.faces)) + " faces")
     
     # Export to output format
     print("[3/3] Exporting to " + output_format.upper() + "...")
