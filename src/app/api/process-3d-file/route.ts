@@ -309,19 +309,10 @@ export async function POST(request: NextRequest) {
 
     console.log(`Starting 3D file conversion...`);
     
-    // Check if freecadcmd is available
-    const freecadAvailable = await new Promise<boolean>((resolve) => {
-      const check = spawn('which', ['freecadcmd']);
-      check.on('exit', (code) => resolve(code === 0));
-    });
-
-    if (!freecadAvailable) {
-      throw new Error('FreeCAD not installed. Real 3D file conversion requires FreeCAD to be installed in the deployment environment.');
-    }
-
-    // Run FreeCAD conversion (no fallback - must succeed or fail hard)
+    // Run trimesh conversion via Python script
+    // (no need to check for freecadcmd - using lightweight trimesh instead)
     await runFreeCADConversion(uploadedFile, outputFile, ext, outputFormat);
-    console.log('✓ FreeCAD conversion successful');
+    console.log('✓ Trimesh conversion successful');
 
     // Read processed file
     const processedBuffer = await readFile(outputFile);
