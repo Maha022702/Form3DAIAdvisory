@@ -284,15 +284,15 @@ export async function POST(request: NextRequest) {
     console.log('Skipping AI analysis - using direct format conversion');
     
     // Determine output format based on input
-    let outputFormat = 'STEP';
+    let outputFormat = 'OBJ';  // Use OBJ instead of STEP (trimesh supports OBJ natively)
     let summary = `Converting ${ext.toUpperCase()} to ${outputFormat}`;
     
     if (ext.toLowerCase() === 'step' || ext.toLowerCase() === 'stp') {
       outputFormat = 'STL'; // Convert STEP to STL
       summary = `Converting STEP to STL for 3D printing`;
     } else if (ext.toLowerCase() === 'stl') {
-      outputFormat = 'STEP'; // Convert STL to STEP (most common)
-      summary = `Converting STL mesh to STEP solid for CAD`;
+      outputFormat = 'OBJ'; // Convert STL to OBJ (trimesh supports this)
+      summary = `Converting STL mesh to OBJ for universal compatibility`;
     }
     
     console.log(`Output Format: ${outputFormat}`);
